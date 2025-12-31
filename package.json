@@ -7,6 +7,9 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "expo-sqlite": "^16.0.10"
+    "cors": "^2.8.5",
+    "expo-sqlite": "^16.0.10",
+    "express": "^5.2.1",
+    "yahoo-finance2": "^3.10.2"
   }
 }
