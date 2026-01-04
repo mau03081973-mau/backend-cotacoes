@@ -25,8 +25,9 @@ app.get('/cotacao/:ticker', async (req, res) => {
 
   try {
     // 1. Fazer a requisição para a BrAPI
-    const fullUrl = `${BRAPI_URL_BASE}/${ticker}?token=${BRAPI_TOKEN}`;
-    const response = await fetch(fullUrl);
+    const fullUrl = `${BRAPI_URL_BASE}/${ticker.toUpperCase()}?token=${BRAPI_TOKEN}`;
+const response = await fetch(fullUrl);
+
     
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
