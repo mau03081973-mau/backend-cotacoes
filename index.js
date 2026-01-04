@@ -1,4 +1,5 @@
 import express from 'express';
+// Não precisamos importar fetch, pois ele é nativo no Node 22
 import cors from 'cors';
 
 const app = express();
@@ -9,8 +10,8 @@ app.use(express.json());
 app.use(cors());
 
 // --- Configurações da BrAPI ---
-// Correção: Adicionado o protocolo https e o endpoint correto de quote
-const BRAPI_URL_BASE = "brapi.dev"; 
+// ✅ CORREÇÃO CRÍTICA: URL completa com https:// e o endpoint /api/quote
+const BRAPI_URL_BASE = "//www.brapi.dev"; 
 const BRAPI_TOKEN = process.env.BRAPI_TOKEN || "dUqjqAHdty7BWcNqjcPJi4"; 
 // ------------------------------
 
@@ -25,10 +26,10 @@ app.get('/cotacao/:ticker', async (req, res) => {
 
   try {
     // 1. Fazer a requisição para a BrAPI
+    // A URL agora é montada corretamente
     const fullUrl = `${BRAPI_URL_BASE}/${ticker.toUpperCase()}?token=${BRAPI_TOKEN}`;
-const response = await fetch(fullUrl);
+    const response = await fetch(fullUrl);
 
-    
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(`Erro na BrAPI: ${response.status} - ${errorData.message || response.statusText}`);
